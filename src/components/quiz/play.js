@@ -116,6 +116,7 @@ class Play extends Component {
       );
     }
   };
+  
   //not working
   handelQuitButtonClick = () => {
     this.playButtonSound();
