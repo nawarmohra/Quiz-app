@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 // import { Icon } from '@iconify/react';
 import logo from '../assets/img/JaywayLogo.png';
+import play from '../assets/img/play.gif';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
@@ -20,9 +21,15 @@ const Home = () => (
                     </ui>
                 </div>
                 <div className= "auth-container">
+                    <p>This quiz game is a challenge</p>
+                </div>
+                <div className= "auth-container">
+                <img className="play-img" src={play} alt="play" />
+                </div>
+                {/* <div className= "auth-container">
                         <Link to="/login" className="auth-button" id="login-button">Login</Link>
                         <Link to="/register" className="auth-button" id="register-button">Sign Up</Link>
-                </div>
+                </div>*/}
             </section>
         </div>
     </Fragment>

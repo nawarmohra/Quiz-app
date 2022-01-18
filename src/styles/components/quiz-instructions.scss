@@ -1,6 +1,12 @@
+body {
+    background-image: url('../../assets/img/monophy.gif');
+    background-size: cover;
+    background-position: center;
+}
+  
 .instructions { 
-    border: 1px solid rgb(59, 59, 59);
-    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.966);
+    box-shadow: 0px 0px 0px rgba(105, 105, 105, 0.884);
     margin-top: 3rem;
     margin-bottom: 3rem;
     padding: 6rem;
@@ -53,9 +59,32 @@
 }
 
 @media (max-width: 768px) {
-    .instructions img { 
+    .instructions { 
         padding: 0 1.5;
         width: 100% !important;
-        width: 150% !important;
+        height: 100% !important;
+    }
+
+    h1, h2{
+        font-size: 3rem !important;
+    }
+
+    h4{
+        font-size: 2rem !important;
+    }
+
+    .buttons-setion{
+        padding-top: 100px !important;
+    }
+}
+
+@media (max-width: 280px) {
+    .instructions { 
+        padding: 0 1.5;
+        width: 100% !important;
+        height: 100% !important;
+    }
+    h1 {
+        font-size: 3rem !important;
     }
 }

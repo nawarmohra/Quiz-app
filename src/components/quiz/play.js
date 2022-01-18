@@ -412,6 +412,7 @@ handelFiftyFifty = () => {
             </p>
           </div>
           <h5>{currentQuestion.question}</h5>
+          <div className="button-container">
           <div className="option-container">
             <p onClick={this.handleOptionClick} className="option">
               {currentQuestion.optionA}
@@ -427,6 +428,7 @@ handelFiftyFifty = () => {
             <p onClick={this.handleOptionClick} className="option">
               {currentQuestion.optionD}
             </p>
+          </div>
           </div>
           <div className="button-container">
             <button 

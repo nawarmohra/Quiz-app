@@ -51,6 +51,7 @@ class QuizSummary extends Component {
         if (state !== undefined){
             stats = (
                 <Fragment>
+                <div className="quiz-container">
                     <div>
                         <span className="mdi mdi-check-circle-outline success-icon"></span>
                     </div>
@@ -76,16 +77,17 @@ class QuizSummary extends Component {
                         <span className="stat left">50-50 Used:</span>
                         <span className="right">{this.state.fiftyFiftyUsed}</span><br /> 
                     </div>
-                    <section>
+                    <section className="buttons-setion">
                         <ul>
-                            <li>
+                            <li className="button-top">
                                 <Link to ="/">Back to Home</Link>
                             </li>
-                            <li>
+                            <li className="button-down">
                                 <Link to ="/play/quiz">Play Again</Link>
                             </li>
                         </ul>
                     </section>
+                </div>
                 </Fragment>
             );
         } else {

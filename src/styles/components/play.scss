@@ -1,8 +1,8 @@
 .questions {
-    background-color: rgba(240, 240, 240, 0.671);
-    border-top: 0.5rem solid rgb(255, 62, 62);
+    background-color: rgba(236, 232, 232, 0.945);
+    border-top: 1rem solid rgb(255, 62, 62);
     width: 80%;
-    margin: 4rem auto 0 auto;
+    margin: 5rem auto 0 auto;
     padding: 1rem 2rem;
 
     .lifeline-container {
@@ -13,7 +13,7 @@
     h5 {
         color: #2c2c2c;
         font-size: 1.6rem;
-        margin-top: 2rem;
+        margin-top: 5rem;
         line-height: 1.5;
         text-align: center;
     }
@@ -62,10 +62,10 @@
 
 .button-container {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     margin: 0 auto 1rem auto;
-    padding: 2rem;
-    width: 80%;
+    padding: 1rem;
+    width: 100%;
 }
 
 .button-container button {
@@ -105,4 +105,40 @@
 .button-container button:last-child:hover {
     background-color: #ff3300;
     box-shadow: 0px 5px 5px  rgba(229, 98, 46, 0.4);
+}
+
+@media (max-width: 768px) {
+    .button-container {
+        width: 100% !important;
+        display: block !important;
+        margin-top: -24px !important;
+    }
+
+    #home section { 
+        padding: 0 1.5;
+        width: 100%;
+        height: 100%;
+    }
+    .option-container{
+        display: block !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 280px) {
+    .button-container {
+        width: 100% !important;
+        display: block !important;
+        margin-left: -24px !important;
+    }
+
+    #home section { 
+        padding: 0 ;
+        width: 100%;
+        height: 100%;
+    }
+    .option-container{
+        display: block !important;
+        width: 100% !important;
+    }
 }
