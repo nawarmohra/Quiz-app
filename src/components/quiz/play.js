@@ -256,7 +256,7 @@ handelFiftyFifty = () => {
     let count = 0;
     do {
       const randomNumber = Math.round(Math.random() * 3);
-      if (randomNumber !== indexofAnswer){
+      if (randomNumber !== indexofAnswer) {
         if (randomNumbers.length < 2 && !randomNumbers.includes(randomNumber) && !randomNumbers.includes(indexofAnswer));
         randomNumbers.push(randomNumber);
         count ++;
@@ -272,7 +272,9 @@ handelFiftyFifty = () => {
       }
     } while (count < 2);
     options.forEach((option, index) => {
-      option.style.visibility = 'hidden';
+      if (randomNumbers.includes(index)){
+        option.style.visibility = 'hidden';
+      }
     });
     this.setState(prevState => ({
       fiftyFifty: prevState.fiftyFifty - 1,
