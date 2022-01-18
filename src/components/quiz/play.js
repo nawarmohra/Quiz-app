@@ -31,6 +31,9 @@ class Play extends Component {
       time: {},
     };
     this.interval = null;
+    this.correctSound = React.createRef();
+    this.wrongSound = React.createRef();
+    this.buttonSound = React.createRef();
   }
 
   componentDidMount() {
@@ -43,6 +46,10 @@ class Play extends Component {
       previousQuestion
     );
     this.startTimer();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   displayQuestions = (
@@ -74,12 +81,12 @@ class Play extends Component {
   handleOptionClick = (e) => {
     if (e.target.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
       setTimeout(() => {
-        document.getElementById("correct-sound").play();
+       this.correctSound.current.play();
       }, 500);
       this.correctAnswer();
     } else {
       setTimeout(() => {
-        document.getElementById("wrong-sound").play();
+        this.wrongSound.current.play();
       }, 500);
       this.wrongAnswer();
     }
@@ -151,7 +158,7 @@ class Play extends Component {
   };
 
   playButtonSound = () => {
-    document.getElementById("button-sound").play();
+    this.buttonSound.current.play();
   };
 
   correctAnswer = () => {
@@ -168,12 +175,15 @@ class Play extends Component {
         numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions + 1,
       }),
       () => {
-        this.displayQuestions(
-          this.state.questions,
-          this.state.currentQuestion,
-          this.state.nextQuestion,
-          this.state.previousQuestion
-        );
+        if (this.state.nextQuestion === undefined){
+          this.endGame();
+        } else {
+          this.displayQuestions(
+            this.state.questions,
+            this.state.currentQuestion,
+            this.state.nextQuestion,
+            this.state.previousQuestion
+          )}
       }
     );
   };
@@ -192,16 +202,17 @@ class Play extends Component {
         numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions + 1,
       }),
       () => {
-        this.displayQuestions(
-          this.state.questions,
-          this.state.currentQuestion,
-          this.state.nextQuestion,
-          this.state.previousQuestion
-        );
-        this.startTimer();
-      }
-    );
-  };
+        if (this.state.nextQuestion === undefined){
+          this.endGame();
+        } else {
+          this.displayQuestions(
+            this.state.questions,
+            this.state.currentQuestion,
+            this.state.nextQuestion,
+            this.state.previousQuestion
+          )}
+      });
+  }
 
   showOptions = () => {
     const options = Array.from(document.querySelectorAll('.option'));
@@ -301,8 +312,7 @@ handelFiftyFifty = () => {
               seconds: 0,
             }
           }, () => {
-            alert('Time has ended!');
-            this.props.history.push('/');
+            this.endGame();
           }
         );
       } else {
@@ -336,7 +346,24 @@ handelFiftyFifty = () => {
         nextButtonDisabled: false
       });
     }
+  }
 
+  endGame = () => {
+    alert('Quiz has ended!');
+    const { state } = this;
+    const playerStats = {
+      score: state.score,
+      numberOfQuestions: state.numberOfQuestions,
+      numberOfAnsweredQuestions: state.correctAnswers + state.wrongAnswers,
+      correctAnswers: state.correctAnswers,
+      wrongAnswers: state.wrongAnswers,
+      fiftyFiftyUsed: 2 - state.fiftyFifty,
+      hintsUsed: 5 - state.hints
+    };
+    console.log (playerStats);
+    setTimeout(() => {
+      this.props.history.push('/play/quizSummary', playerStats);
+    }, 1000);
   }
 
 
@@ -357,9 +384,9 @@ handelFiftyFifty = () => {
           <title>Programming assignment - Quiz Page</title>
         </Helmet>
         <Fragment>
-          <audio id="correct-sound" src={correctNotification}></audio>
-          <audio id="wrong-sound" src={wrongNotification}></audio>
-          <audio id="button-sound" src={buttonNotification}></audio>
+          <audio ref={this.correctSound} src={correctNotification}></audio>
+          <audio ref={this.wrongSound} src={wrongNotification}></audio>
+          <audio ref={this.buttonSound} src={buttonNotification}></audio>
         </Fragment>
         <div className="questions">
           <div className="lifeline-container">
@@ -409,6 +436,7 @@ handelFiftyFifty = () => {
               Previous
             </button>
             <button 
+              //className={classnames('', {'disable': this.state.nextButtonDisabled})}
               id="next-button" 
               onClick={this.handleButtonClick}>
               Next
