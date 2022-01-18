@@ -25,6 +25,9 @@ class Play extends Component {
       hints: 5,
       fiftyFifty: 2,
       usedFiftyFifty: false,
+      nextButtonDisabled: false,
+      previousButtonDisabled: true,
+      previousRandomNumbers: [],
       time: {},
     };
     this.interval = null;
@@ -61,7 +64,10 @@ class Play extends Component {
         previousQuestion,
         numberOfQuestions: questions.length,
         answer,
-      });
+      },() => {
+        this.showOptions();
+        this.handleDisableButton();
+    });
     }
   };
 
@@ -117,7 +123,6 @@ class Play extends Component {
     }
   };
   
-  //not working
   handelQuitButtonClick = () => {
     this.playButtonSound();
     
@@ -198,8 +203,86 @@ class Play extends Component {
     );
   };
 
+  showOptions = () => {
+    const options = Array.from(document.querySelectorAll('.option'));
+
+    options.forEach(option => {
+        option.style.visibility = 'visible';
+    });
+}
+
+handelHints = () => {
+    if (this.state.hints > 0) {
+        const options = Array.from(document.querySelectorAll('.option'));
+        let indexofAnswer;
+
+        options.forEach((option, index) => {
+            if (option.innerHTML.toLowerCase() === this.state.answer.toLowerCase()){
+                indexofAnswer = index;
+            }
+        });
+
+        while (true) {
+            const randomNumber = Math.round(Math.random() * 3);
+            if (randomNumber !== indexofAnswer && !this.state.previousRandomNumbers.includes(randomNumber)) {
+                options.forEach((option, index) => {
+                    if (index === randomNumber) {
+                        option.style.visibility = 'hidden';
+                        this.setState((prevState) => ({
+                            hints: prevState.hints - 1,
+                            previousRandomNumbers: prevState.previousRandomNumbers.concat(randomNumber)
+                        }));
+                    }
+                });
+                break;
+            }
+            if (this.state.previousRandomNumbers.length >= 3) break;
+        }   
+    }
+}
+
+handelFiftyFifty = () => {
+  if (this.state.fiftyFifty > 0 && this.state.usedFiftyFifty === false) {
+    const options = document.querySelectorAll('.option');
+    const randomNumbers = [];
+    let indexofAnswer;
+
+    options.forEach((option, index) => {
+      if (option.innerHTML.toLowerCase() === this.state.answer.toLowerCase()) {
+        indexofAnswer = index;
+      }
+    });
+
+    let count = 0;
+    do {
+      const randomNumber = Math.round(Math.random() * 3);
+      if (randomNumber !== indexofAnswer){
+        if (randomNumbers.length < 2 && !randomNumbers.includes(randomNumber) && !randomNumbers.includes(indexofAnswer));
+        randomNumbers.push(randomNumber);
+        count ++;
+      } else {
+         while (true) {
+           const newRandomNumber = Math.round(Math.random() * 3);
+           if (!randomNumbers.includes(newRandomNumber) && !randomNumbers.includes(indexofAnswer)){
+             randomNumbers.push(newRandomNumber);
+             count ++;
+             break;
+           }
+        }
+      }
+    } while (count < 2);
+    options.forEach((option, index) => {
+      option.style.visibility = 'hidden';
+    });
+    this.setState(prevState => ({
+      fiftyFifty: prevState.fiftyFifty - 1,
+      usedFiftyFifty: true
+    }));
+  }
+}
+
   startTimer = () => {
-    const countDownTime = Date.now() + 30000;
+    const countDownTime = Date.now() + 180000;
     this.interval = setInterval(() => {
       const now = new Date();
       const distance = countDownTime - now;
@@ -214,11 +297,10 @@ class Play extends Component {
             time: {
               minutes: 0,
               seconds: 0,
-            },
-          },
-          () => {
-            alert("Time has ended!");
-            this.props.history.push("/");
+            }
+          }, () => {
+            alert('Time has ended!');
+            this.props.history.push('/');
           }
         );
       } else {
@@ -228,15 +310,41 @@ class Play extends Component {
         });
       }
     }, 1000);
-  };
+  }
+
+  handleDisableButton = () => {
+    if (this.state.previousQuestion === undefined || this.state.currentQuestionIndex === 0){
+      this.setState({
+        previousButtonDisabled: true
+      });
+    } else {
+      this.setState({
+        previousButtonDisabled: false
+      });
+    }
+
+    if (this.state.nextQuestion === undefined || this.state.currentQuestionIndex + 1 === this.state.numberOfQuestions){
+      this.setState({
+        previousButtonDisabled: true
+      });
+    } else {
+      this.setState({
+        nextButtonDisabled: false
+      });
+    }
+
+  }
+
 
   render() {
     const {
       currentQuestion,
       currentQuestionIndex,
-      correctAnswers,
+      //correctAnswers,
       numberOfQuestions,
-      time,
+      hints,
+      fiftyFifty,
+      time
     } = this.state;
 
     return (
@@ -252,19 +360,23 @@ class Play extends Component {
         <div className="questions">
           <div className="lifeline-container">
             <p>
-              <span className="mdi mdi-set-center mdi-24px lifeline-icon"></span>
-              <span className="lifeline">{correctAnswers}</span>
+              <span onClick={this.handelFiftyFifty} className="mdi mdi-set-center mdi-24px lifeline-icon">
+                <span className="lifeline">{fiftyFifty}</span>
+              </span>
             </p>
-            <p></p>
+            <p>
+              <span onClick={this.handelHints} className="mdi mdi-lightbulb mdi-24px lifeline-icon">
+                <span>{hints}</span>
+              </span>  
+            </p>
           </div>
           <div className="timer-container">
             <p>
               <span className="left">
                 {currentQuestionIndex + 1}/{numberOfQuestions}
               </span>
-              <span className="right">
+              <span className="right">{time.minutes}:{time.seconds}
                 <span className="mdi mdi-clock-outline mdi-24px"></span>
-                {time.minutes}:{time.seconds}
               </span>
             </p>
           </div>
@@ -286,10 +398,15 @@ class Play extends Component {
             </p>
           </div>
           <div className="button-container">
-            <button id="previous-button" onClick={this.handleButtonClick}>
+            <button 
+              //className={classnames('', {'disable': this.state.previousButtonDisabled})}
+              id="previous-button"  
+              onClick={this.handleButtonClick}>
               Previous
             </button>
-            <button id="next-button" onClick={this.handleButtonClick}>
+            <button 
+              id="next-button" 
+              onClick={this.handleButtonClick}>
               Next
             </button>
             <button id="quit-button" onClick={this.handleButtonClick}>
