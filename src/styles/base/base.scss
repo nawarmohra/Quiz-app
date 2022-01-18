@@ -1,0 +1,22 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.toast-valid {
+    //success-text
+    background-color: #4caf50 !important;
+    border-radius: 5px !important;
+    color: #fff!important;
+}
+
+.toast-invalid {
+    //error-text
+    background-color: #ff0000 !important;
+    border-radius: 5px !important;
+    color: #fff!important;
+}

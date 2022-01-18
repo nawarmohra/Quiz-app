@@ -1,0 +1,108 @@
+.questions {
+    background-color: rgba(240, 240, 240, 0.671);
+    border-top: 0.5rem solid rgb(255, 62, 62);
+    width: 80%;
+    margin: 4rem auto 0 auto;
+    padding: 1rem 2rem;
+
+    .lifeline-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    h5 {
+        color: #2c2c2c;
+        font-size: 1.6rem;
+        margin-top: 2rem;
+        line-height: 1.5;
+        text-align: center;
+    }
+
+    .lifeline{
+        position: relative;
+        top: -3px;
+    }
+
+    .lifeline-icon {
+       color: #f8613c;
+        cursor: pointer;
+    }
+
+    .lifeline-icon:hover {
+        color: #f8e53c;
+         cursor: pointer;
+     }
+ 
+
+
+    .option-container{
+        display: inline-block;
+        width: 40%;
+    }
+
+    .option {
+        background-color: #2EE59D;
+        border-radius: 1rem;
+        cursor: pointer;
+        margin: 2rem auto;
+        padding: 1rem;
+        transition: 0.3s linear all;
+        text-align: center;
+        width: 90%;
+    }
+
+    .option:hover {
+        background-color: #1af19b;
+        border-radius: 2rem;
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        color: #fff;
+        transform: translateY(-7px);
+    }
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 auto 1rem auto;
+    padding: 2rem;
+    width: 80%;
+}
+
+.button-container button {
+    border: none;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    margin-right: 2rem;
+    padding: 0.5rem 1rem;
+}
+
+
+.button-container button:first-child {
+    background-color: rgb(60, 178, 233);
+    transition: 0.3s linear all;
+}
+
+.button-container button:first-child:hover {
+    background-color: rgb(26, 166, 231);
+    box-shadow: 0px 5px 5px  rgba(46, 171, 229, 0.4);
+}
+
+.button-container button:nth-child(2) {
+    background-color: #4ef5b2;
+    transition: 0.3s linear all;
+}
+
+.button-container button:nth-child(2):hover {
+    background-color: rgb(46, 229, 156);
+    box-shadow: 0px 5px 5px  rgba(46, 229, 157, 0.4);
+}
+
+.button-container button:last-child {
+    background-color: #f8613c;
+    transition: 0.3s linear all;
+}
+
+.button-container button:last-child:hover {
+    background-color: #ff3300;
+    box-shadow: 0px 5px 5px  rgba(229, 98, 46, 0.4);
+}
