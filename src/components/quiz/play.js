@@ -307,8 +307,10 @@ handelFiftyFifty = () => {
         );
       } else {
         this.setState({
-          minutes,
-          seconds,
+          time: {
+            minutes,
+            seconds,
+          }
         });
       }
     }, 1000);
@@ -377,7 +379,7 @@ handelFiftyFifty = () => {
               <span className="left">
                 {currentQuestionIndex + 1}/{numberOfQuestions}
               </span>
-              <span className="right">{time.minutes}:{time.seconds}
+              <span className="right">{time.minutes} : {time.seconds}
                 <span className="mdi mdi-clock-outline mdi-24px"></span>
               </span>
             </p>
