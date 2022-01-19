@@ -6,6 +6,7 @@ import isEmpty from "../../utils/is-empty";
 import correctNotification from "../../assets/audio/correct-answer.mp3";
 import wrongNotification from "../../assets/audio/wrong-answer.mp3";
 import buttonNotification from "../../assets/audio/button-sound.mp3";
+import classnames from "classnames";
 
 class Play extends Component {
   constructor(props) {
@@ -432,7 +433,7 @@ handelFiftyFifty = () => {
           </div>
           <div className="button-container">
             <button 
-              //className={classnames('', {'disable': this.state.previousButtonDisabled})}
+              className={classnames('', {'disable': this.state.previousButtonDisabled})}
               id="previous-button"  
               onClick={this.handleButtonClick}>
               Previous
