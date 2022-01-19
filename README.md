@@ -5,7 +5,10 @@ When the game begins, the player is presented with ten questions, one by one, fr
 pool of more than ten questions. The questions are to be presented in a random
 order, but the player should not receive the same question twice until all the
 other questions has been answered. A question can have a text or an image, and
-four alternative answers. Only one of the answers is correct.
+four alternative answers. 
+
+Only one of the answers is correct.
+
 The player has 15 seconds to answer each question. The remaining time should
 be visible to the player. When the time is up for a question, that question is
 considered unanswered. The player has two lifelines, one called “50/50” that
