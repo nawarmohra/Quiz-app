@@ -16,7 +16,6 @@ removes two incorrect answers, and one called “+10 s” that gives the player
 ten extra seconds for the current question. Each lifeline can only be used once
 during a game.
 
-Live Demo: [https://nawarmohra.com/Quiz-app/](https://nawarmohra.com/Quiz-app/) to view it in your browser.
 
 ## Available Scripts
 
